@@ -8,13 +8,41 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/assets/ico/favicon.png">
 
-    <title>Jumbotron Template for Bootstrap</title>
+    <title>Stock Search</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="data/dist/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!-- Custom styles for this template -->
-    <link href="/main.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
+    <style>
+      .ui-draggable, .ui-droppable {
+        background-position: top;
+      }
+      .info-box {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 5;
+        -moz-border-radius: 5;
+        border-radius: 5px;
+        text-shadow: 1px 1px 3px #666666;
+        -webkit-box-shadow: 0px 1px 3px #666666;
+        -moz-box-shadow: 0px 1px 3px #666666;
+        box-shadow: 0px 1px 3px #666666;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 13px;
+        padding: 10px 20px 10px 20px;
+        text-decoration: none;
+        min-height: 200px;
+      }
+
+    </style>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -37,14 +65,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#">Stock Search</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
+            {# <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Action</a></li>
@@ -55,17 +83,8 @@
                 <li><a href="#">Separated link</a></li>
                 <li><a href="#">One more separated link</a></li>
               </ul>
-            </li>
+            </li> #}
           </ul>
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
         </div><!--/.navbar-collapse -->
       </div>
     </div>
@@ -75,8 +94,9 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <h1>Stock Search SITE</h1>
+        <p>This is a simple website which parses the Equity from <a href="http://www.bseindia.com">BSE INDIA</a> website. It provides the information of
+        the top ten stocks of the previous day and also 'Search' option to get stocks based on name of any stock.</p>
         <p><a class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
       </div>
     </div>
@@ -84,21 +104,27 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+         <form class="navbar-form">
+        <div class="form-group" style="display:inline;">
+          <div class="input-group ui-widget">
+            <input type="text" id="autocomplete" class="form-control">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+          </div>
         </div>
-        <div class="col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-       </div>
-        <div class="col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-        </div>
+      </form>
+
+      </div>
+      <div class="info-box">
+
+      </div>
+      <div>
+        <table class="table" id="stock-table"></table>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Open</th>
+        <th>Close</th>
+        <th>High</th>
+        <th>Low</th>
       </div>
     {% endblock content %}
 
@@ -106,7 +132,7 @@
 
       <footer>
         {% block footer %}
-        <p>&copy; Company 2013</p>
+        <p>&copy; Zerodha Task 2017</p>
         {% endblock footer %}
       </footer>
     </div> <!-- /container -->
@@ -115,8 +141,31 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript">
+    $( function() {
+    $( "#autocomplete" ).autocomplete({
+      source: function(req, resp) {
+          $.getJSON("/autocomplete/" + encodeURIComponent(req.term), resp);
+      },
+      minLength: 2,
+      select: function( event, ui ) {
+        $.ajax({
+          url: "/stock_details/"+ui.item.id,
+          contentType: "application/json",
+          success: function(item){
+            var HTML = '';
+                HTML += '<tr><td>' + item.sc_name + '</td><td>' + item.sc_code + '</td><td>' + item.sc_open + '</td><td>'+
+                item.sc_close + '</td><td>'+item.sc_high + '</td><td>'+item.sc_low + '</td></tr>';
+            $('#stock-table').append(trHTML);
+        }});
+      }
+    });
+     } );
+    </script>
+    <script src="data/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     {% block footscript %}
     {% endblock footscript %}
   </body>
