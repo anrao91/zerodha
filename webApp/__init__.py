@@ -83,6 +83,7 @@ def get_sc_row(item):
 
 
 def store_csv_data():
+    # Todo: Remove the timedelta.
     current_date = datetime.date.today() - datetime.timedelta(1)
     current_date = current_date.strftime("%d%m%y")
     csv_list = get_csv_data('http://www.bseindia.com/download/BhavCopy/Equity/EQ' +
@@ -131,6 +132,7 @@ def get_top_stock_entries(no_of_entries):
 class Root(object):
     @cherrypy.expose
     def index(self):
+        # store_csv_data()
         template_index = env.get_template('index.html')
         return template_index.render()
 
