@@ -38,6 +38,8 @@ class Stock(models.Model):
     sc_high = models.FloatField()
     sc_low = models.FloatField()
     sc_close = models.FloatField()
+    sc_prevclose = models.FloatField()
+    sc_volume = models.IntegerField()
 
 
 # class Parse_Store_Stock(object):
@@ -54,31 +56,21 @@ def get_csv_data(file_url):
     return csv_list
 
 
-# def getzip(filename, ignoreable=100):
-#     try:
-#         return zipfile.ZipFile(filename)
-#     except zipfile.BadZipfile:
-#         original = open(filename, 'rb')
-#     try:
-#         data = original.read()
-#     finally:
-#         original.close()
-#     position = data.rindex(zipfile.stringEndArchive,
-#                            -(22 + ignoreable), -20)
-#     coredata = cStringIO.StringIO(data[: 22 + position])
-#     return zipfile.ZipFile(coredata)
-
-
 def get_sc_row(item):
-    sc_code = int(item.get('SC_CODE'))
-    sc_name = item.get('SC_NAME')
-    sc_open = float(item.get('OPEN'))
-    sc_high = float(item.get('HIGH'))
-    sc_low = float(item.get('LOW'))
-    sc_close = float(item.get('CLOSE'))
-    sc_row = Stock(sc_code=sc_code, sc_name=sc_name, sc_open=sc_open,
-                   sc_high=sc_high, sc_low=sc_low, sc_close=sc_close)
-    cherrypy.log('SC_ROW stored: {}'.format(sc_row.is_valid()))
+    try:
+        sc_code = int(item.get('SC_CODE'))
+        sc_name = item.get('SC_NAME')
+        sc_open = float(item.get('OPEN'))
+        sc_high = float(item.get('HIGH'))
+        sc_low = float(item.get('LOW'))
+        sc_close = float(item.get('CLOSE'))
+        sc_prevclose = float(item.get('PREVCLOSE'))
+        sc_volume = int(item.get('NO_OF_SHRS'))
+        sc_row = Stock(sc_code=sc_code, sc_name=sc_name, sc_open=sc_open,
+                       sc_high=sc_high, sc_low=sc_low, sc_close=sc_close,
+                       sc_prevclose=sc_prevclose, sc_volume=sc_volume)
+    except Exception:
+        cherrypy.log(str(sc_row.errors))
     return sc_row
 
 

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!-- Custom styles for this template -->
-    <link href="main.css" rel="stylesheet">
+    <link href="data/dist/css/main.css" rel="stylesheet">
     <style>
       .ui-draggable, .ui-droppable {
         background-position: top;
@@ -141,9 +141,17 @@
           url: "/stock_details/"+ui.item.id,
           contentType: "application/json",
           success: function(item){
+            var stock_delta = parseFloat(item.sc_prevclose - item.sc_open).toFixed(2);
+            var stock_delta_percentage = parseFloat((stock_delta * 100.0) / item.sc_prevclose).toFixed(2);
             var scHTML = '';
-                scHTML += '<div class="info-box"><div>' + item.sc_name + '</div><div>' + item.sc_code + '</div><div>' + item.sc_open + '</div><div>'+
-                item.sc_close + '</div><div>'+item.sc_high + '</div><div>'+item.sc_low + '</div></div>';
+                scHTML += '<div class="info-box"><div class="stock-name">' + item.sc_name +
+                          '</div><div class="row"><span class="stock-close span3">' + item.sc_close +
+                          '</span> INR' + (stock_delta > 0 ? '<span class="arrow-up span3"></span>' :
+                          '<span class="arrow-down span3"></span>') +
+                          '<span class="span3 stock-delta">' + Math.abs(stock_delta) + '</span></div><div class="stock-code">'
+                          + item.sc_code + '</div><div class="stock-open">' + item.sc_open +
+                          '</div><div class="stock-high">'+item.sc_high + '</div><div class="stock-low">' +
+                          item.sc_low + '</div></div>';
             $('.stock-info').html(scHTML);
         }});
       }

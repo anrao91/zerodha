@@ -1,0 +1,70 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.arrow-up {
+    position: relative;
+    top: -13px;
+    left: 4px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid green;
+    margin-right: 10px;
+}
+
+.arrow-down {
+    position: relative;
+    top: 12px;
+    left: 4px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 8px solid red;
+    margin-right: 10px;
+}
+
+.stock-name {
+    font-size: 20px;
+    color: darkgray;
+}
+
+.stock-code{
+
+}
+
+.stock-open{
+
+}
+
+.stock-close{
+    margin-left: 15px;
+    font-size: 18px;
+}
+
+.stock-high{
+
+}
+
+.stock-low{
+
+}
+
+.stock-volume{}
+
+.stock-delta{
+    color: ;
+}
+
+
+.turn-red{
+    color: red;
+}
+
+.turn-green{
+    color: green;
+}
